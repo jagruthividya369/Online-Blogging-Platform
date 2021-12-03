@@ -1,4 +1,9 @@
 package com.project.demo.repository;
 
-public class BlogRepository {
+import com.project.demo.entites.Blog;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface BlogRepository  extends CrudRepository<Blog,Integer>{
 }
