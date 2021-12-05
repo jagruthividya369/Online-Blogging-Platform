@@ -8,11 +8,8 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 @Data
 @SequenceGenerator(name = "blog_seq_gen", sequenceName = "blog_seq", allocationSize = 1)
-@ToString
 public class Blog {
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "blog_seq_gen")
@@ -34,7 +31,14 @@ public class Blog {
     @Column(name = "dislikes", nullable = true)
     private Integer blogDisLikes;
 
-//    @ManyToOne
-//    private User userName;
+    @ManyToOne
+    private User userId;
 
+    public Blog(Long blogId, String blogName, String blogContent, Integer blogLikes, Integer blogDisLikes) {
+        this.blogId = blogId;
+        this.blogName = blogName;
+        this.blogContent = blogContent;
+        this.blogLikes = blogLikes;
+        this.blogDisLikes = blogDisLikes;
+    }
 }
