@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class BlogService {
+public class BlogServiceImplementation implements BlogServiceInterface{
     @Autowired
     BlogRepository blogRepository;
     public void createBlogService( Blog theBlog) {

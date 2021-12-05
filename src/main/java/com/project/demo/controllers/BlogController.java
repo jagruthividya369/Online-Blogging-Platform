@@ -2,7 +2,7 @@ package com.project.demo.controllers;
 
 import com.project.demo.entites.Blog;
 import com.project.demo.entites.User;
-import com.project.demo.services.BlogService;
+import com.project.demo.services.BlogServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
 @RequestMapping("/blog")
 public class BlogController {
     @Autowired
-    BlogService blogService;
+    BlogServiceImplementation blogService;
 
     // Create a Blog
     @PostMapping("/createBlog/{userId}")
@@ -23,6 +23,7 @@ public class BlogController {
     // Get Blogs by userId
     @GetMapping("/getBlogByUserId/{userId}")
     public List<Blog> getBlogByUserId(@PathVariable Long userId){
+
         return blogService.getBlogByUserIdService(userId);
     }
 
@@ -38,4 +39,10 @@ public class BlogController {
     public void deleteBlog(@PathVariable Long blogId) {
         blogService.deleteBlogService(blogId);
     }
+
+    // Delete All Blogs by UserId
+    // Save Blog as draft
+    // Publish draft as a blog
+    // Add
+
 }
