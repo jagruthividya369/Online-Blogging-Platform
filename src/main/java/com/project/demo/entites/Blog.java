@@ -18,9 +18,10 @@ public class Blog {
 
     @Length(min=10, message = "enter the blog name/title")
     @Column(name = "blogName", nullable = false, unique = true)
+    @Lob
     private String blogName;
 
-    @Length(min=500, message = "Enter the contents of the blog")
+    @Length(min=10)
     @Column(name="blogContent", nullable = false, unique = false)
     @NotEmpty(message ="Please enter the contents")
     private String blogContent;
@@ -32,13 +33,14 @@ public class Blog {
     private Integer blogDisLikes;
 
     @ManyToOne
-    private User userId;
+    private User user;
 
-    public Blog(Long blogId, String blogName, String blogContent, Integer blogLikes, Integer blogDisLikes) {
-        this.blogId = blogId;
+    public Blog(String blogName, String blogContent, Integer blogLikes, Integer blogDisLikes, Long id) {
         this.blogName = blogName;
         this.blogContent = blogContent;
         this.blogLikes = blogLikes;
         this.blogDisLikes = blogDisLikes;
+        this.user =new User(id,"","","","");
+
     }
 }
