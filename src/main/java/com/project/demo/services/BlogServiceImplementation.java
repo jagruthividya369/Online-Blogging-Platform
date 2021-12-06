@@ -6,20 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BlogServiceImplementation implements BlogServiceInterface{
     @Autowired
     BlogRepository blogRepository;
+
     public void createBlogService( Blog theBlog) {
         blogRepository.save(theBlog);
     }
 
     public List<Blog> getBlogByUserIdService(Long userId) {
-        return blogRepository.findByUserId(userId);
-
+        return blogRepository.findByUserId(userId).stream().filter(theBlog->theBlog.isPublishedStatus()).collect(Collectors.toList());
     }
-
+    public List<Blog> getDraftByUserIdService(Long userId) {
+        return blogRepository.findByUserId(userId).stream().filter(theBlog->!(theBlog.isPublishedStatus())).collect(Collectors.toList());
+    }
     public void updateBlogService(Blog theBlog) {
         blogRepository.save(theBlog);
     }

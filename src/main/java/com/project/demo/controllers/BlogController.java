@@ -17,6 +17,15 @@ public class BlogController {
     @PostMapping("/createBlog/{userId}")
     public void createBlog(@PathVariable Long userId, @RequestBody Blog theBlog){
         theBlog.setUser(new User(userId,"","","",""));
+        theBlog.setPublishedStatus(true);
+        blogService.createBlogService(theBlog);
+    }
+
+    // Create a Draft
+    @PostMapping("/createDraft/{userId}")
+    public void createDraft(@PathVariable Long userId, @RequestBody Blog theBlog){
+        theBlog.setUser(new User(userId,"","","",""));
+        theBlog.setPublishedStatus(false);
         blogService.createBlogService(theBlog);
     }
 
@@ -27,10 +36,26 @@ public class BlogController {
         return blogService.getBlogByUserIdService(userId);
     }
 
+    // Get Drafts by userId
+    @GetMapping("/getDraftByUserId/{userId}")
+    public List<Blog> getDraftByUserId(@PathVariable Long userId){
+
+        return blogService.getDraftByUserIdService(userId);
+    }
+
     //Update Blog by userId
     @PutMapping("updateBlog/{userId}")
     public void updateBlogContent(@PathVariable Long userId, @RequestBody Blog theBlog) {
         theBlog.setUser(new User(userId,"","","",""));
+        theBlog.setPublishedStatus(true);
+        blogService.updateBlogService(theBlog);
+    }
+
+    //Update Draft by userId
+    @PutMapping("updateDraft/{userId}")
+    public void updateDraftContent(@PathVariable Long userId, @RequestBody Blog theBlog) {
+        theBlog.setUser(new User(userId,"","","",""));
+        theBlog.setPublishedStatus(false);
         blogService.updateBlogService(theBlog);
     }
 
@@ -40,9 +65,21 @@ public class BlogController {
         blogService.deleteBlogService(blogId);
     }
 
-    // Delete All Blogs by UserId
-    // Save Blog as draft
-    // Publish draft as a blog
-    // Add
+    //Blog To Draft
+    @PutMapping("blogToDraft/{userId}")
+    public void blogToDraft(@PathVariable Long userId, @RequestBody Blog theBlog){
+        theBlog.setUser(new User(userId,"","","",""));
+        theBlog.setPublishedStatus(false);
+        blogService.updateBlogService(theBlog);
+    }
+
+    // Draft To Blog
+    @PutMapping("draftToBlog/{userId}")
+    public void draftToBlog(@PathVariable Long userId, @RequestBody Blog theBlog){
+        theBlog.setUser(new User(userId,"","","",""));
+        theBlog.setPublishedStatus(true);
+        blogService.updateBlogService(theBlog);
+    }
+
 
 }
