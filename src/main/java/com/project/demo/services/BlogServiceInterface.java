@@ -7,6 +7,7 @@ import java.util.List;
 public interface BlogServiceInterface {
     void createBlogService( Blog theBlog);
     List<Blog> getBlogByUserIdService(Long userId);
+    List<Blog> getDraftByUserIdService(Long userId);
     void updateBlogService(Blog theBlog);
     void deleteBlogService(Long blogId);
 }

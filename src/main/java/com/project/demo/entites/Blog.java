@@ -9,21 +9,20 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@SequenceGenerator(name = "blog_seq_gen", sequenceName = "blog_seq", allocationSize = 1)
 public class Blog {
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "blog_seq_gen")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "bId")
     private Long blogId;
 
     @Length(min=10, message = "enter the blog name/title")
     @Column(name = "blogName", nullable = false, unique = true)
-    @Lob
     private String blogName;
 
     @Length(min=10)
     @Column(name="blogContent", nullable = false, unique = false)
     @NotEmpty(message ="Please enter the contents")
+    @Lob
     private String blogContent;
 
     @Column(name = "likes", nullable = true)
@@ -35,12 +34,18 @@ public class Blog {
     @ManyToOne
     private User user;
 
-    public Blog(String blogName, String blogContent, Integer blogLikes, Integer blogDisLikes, Long id) {
+    @Column(name="published_status",nullable=false,columnDefinition = "boolean default true")
+    private boolean publishedStatus;   //true-published; false-draft
+
+
+
+    public Blog(String blogName, String blogContent, Integer blogLikes, Integer blogDisLikes, Long id, boolean publishedStatus) {
         this.blogName = blogName;
         this.blogContent = blogContent;
         this.blogLikes = blogLikes;
         this.blogDisLikes = blogDisLikes;
         this.user =new User(id,"","","","");
+        this.publishedStatus=publishedStatus;
 
     }
 }
