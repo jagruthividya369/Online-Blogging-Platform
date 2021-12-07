@@ -29,7 +29,7 @@ public class Blog {
     @Column(name = "likes", columnDefinition = "integer default 0")
     private Integer blogLikes;
 
-    @Column(name = "dislikes", columnDefinition = "integer default 0")
+    @Column(name = "dislikes", columnDefinition = "default 0")
     private Integer blogDisLikes;
 
     @ManyToOne
